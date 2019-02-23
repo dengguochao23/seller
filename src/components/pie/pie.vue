@@ -1,9 +1,9 @@
 <template>
   <cube-popup
-    v-show="visible"
     :mask-closable='true'
     @click="hide"
     @mask-click="hide"
+    ref="pie"
   >
     <div class="pie">
       <div class="pie-container" ref="echart"></div>
@@ -12,9 +12,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import popupMixin from 'common/mixins/popup'
 export default {
-  mixins: [popupMixin],
   data() {
     return {
       hotName: this._normalHotName(this.data)
@@ -25,10 +23,14 @@ export default {
       type: Array
     }
   },
-  mounted() {
-    this._xinit()
-  },
   methods: {
+    show() {
+      this.$refs.pie.show()
+      this._xinit()
+    },
+    hide() {
+      this.$refs.pie.hide()
+    },
     _xinit() {
       var echarts = require('echarts')
       require('echarts/lib/chart/pie')
@@ -67,7 +69,7 @@ export default {
             }
           }]
         })
-      }, 500)
+      }, 50)
     },
     _normalHotName(hotNames) {
       let ret = []
@@ -76,6 +78,8 @@ export default {
       })
       return ret
     }
+  },
+  watch: {
   }
 }
 </script>
@@ -87,6 +91,6 @@ export default {
     height: 100%
     background-color: white
     .pie-container
-      width : 330px
+      width: 330px
       height: 600px
 </style>
