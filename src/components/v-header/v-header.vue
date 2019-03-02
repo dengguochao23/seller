@@ -17,8 +17,8 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div v-if="seller.supports" class="support-count">
-        <span class="count">{{seller.supports.length}}个</span>
+      <div v-if="seller.supports" class="support-count" @click.stop="showPie">
+        <span class="count">查看{{seller.supports.length}}个热门菜品</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
@@ -34,6 +34,7 @@
 
 <script type="text/ecmascript-6">
 import SupportIco from 'components/support-ico/support-ico'
+const SHOW_PIE = 'showPie'
 export default {
   name: 'v-header',
   props: {
@@ -52,7 +53,10 @@ export default {
           }
         })
       this.headerDetailComp.show()
-  }
+    },
+    showPie() {
+      this.$emit(SHOW_PIE)
+    }
   },
   components: {
     SupportIco
